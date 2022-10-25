@@ -11,7 +11,6 @@ import java.util.List;
 public class CaminhoesController {
     @Autowired
     private CaminhaoRepository caminhaoRepository;
-    @CrossOrigin
     @GetMapping
     public List<Caminhao> listar(){
         return caminhaoRepository.listar();
@@ -21,8 +20,6 @@ public class CaminhoesController {
     public Caminhao buscar(@PathVariable String caminhaoId){
         return caminhaoRepository.buscar(caminhaoId);
     }
-
-    @CrossOrigin
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Caminhao adicionar (@RequestBody Caminhao caminhao){

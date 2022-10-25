@@ -13,7 +13,6 @@ import java.util.List;
 public class CarrosController {
     @Autowired
     private CarrosRepository carrosRepository;
-    @CrossOrigin
     @GetMapping
     public List<Carro> listar(){
         return carrosRepository.listar();
@@ -23,8 +22,6 @@ public class CarrosController {
     public Carro buscar(@PathVariable String carroId){
         return carrosRepository.buscar(carroId);
     }
-
-    @CrossOrigin
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Carro adicionar (@RequestBody Carro carro){
