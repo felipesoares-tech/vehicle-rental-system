@@ -8,7 +8,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/caminhoes")
-public class CaminhoesController {
+public class CaminhaoController {
     @Autowired
     private CaminhaoRepository caminhaoRepository;
     @GetMapping
