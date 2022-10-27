@@ -11,32 +11,30 @@ import java.util.List;
 public class CaminhaoRepositoryImpl implements CaminhaoRepository {
     @PersistenceContext
     private EntityManager manager;
+
     @Override
-    public List<Caminhao> listar() {
+    public List<Caminhao> findAll() {
         return manager.createQuery("from Caminhao", Caminhao.class).getResultList();
     }
 
     @Override
-    public Caminhao cadastrar() {
-        return manager.createQuery("from Caminhao",Caminhao.class).getSingleResult();
-    }
-
-    @Override
-    public Caminhao buscar(String id) {
+    public Caminhao findById(String id) {
         return manager.find(Caminhao.class, id);
     }
 
     @Override
     @Transactional
-    public Caminhao salvar(Caminhao caminhao) {
+    public Caminhao save(Caminhao caminhao) {
         System.out.println("Caminhao: "+caminhao.getPlaca());
         return manager.merge(caminhao);
     }
+
     @Override
     @Transactional
-    public void remover(Caminhao caminhao) {
+    public void deleteById(Caminhao caminhao) {
         System.out.println("Caminhao: "+caminhao.getPlaca());
-        caminhao = buscar(caminhao.getPlaca());
+        caminhao = findById(caminhao.getPlaca());
         manager.remove(caminhao);
     }
+
 }

@@ -14,17 +14,22 @@ public class CarroController {
     @Autowired
     private CarrosRepository carrosRepository;
     @GetMapping
-    public List<Carro> listar(){
-        return carrosRepository.listar();
+    public List<Carro> findAll(){
+        return carrosRepository.findAll();
     }
 
     @GetMapping("/{carroId}")
-    public Carro buscar(@PathVariable String carroId){
-        return carrosRepository.buscar(carroId);
+    public Carro findById(@PathVariable String carroId){
+        return carrosRepository.findById(carroId);
     }
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Carro adicionar (@RequestBody Carro carro){
-        return carrosRepository.salvar(carro);
+    public Carro save (@RequestBody Carro carro){
+        return carrosRepository.save(carro);
+    }
+
+    @DeleteMapping
+    public void deleteById(@RequestBody Carro carro){
+        carrosRepository.deleteById(carro);
     }
 }

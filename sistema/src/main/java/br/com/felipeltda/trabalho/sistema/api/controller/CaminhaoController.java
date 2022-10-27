@@ -12,17 +12,17 @@ public class CaminhaoController {
     @Autowired
     private CaminhaoRepository caminhaoRepository;
     @GetMapping
-    public List<Caminhao> listar(){
-        return caminhaoRepository.listar();
+    public List<Caminhao> findAll(){
+        return caminhaoRepository.findAll();
     }
 
     @GetMapping("/{caminhaoId}")
-    public Caminhao buscar(@PathVariable String caminhaoId){
-        return caminhaoRepository.buscar(caminhaoId);
+    public Caminhao findById(@PathVariable String caminhaoId){
+        return caminhaoRepository.findById(caminhaoId);
     }
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Caminhao adicionar (@RequestBody Caminhao caminhao){
-        return caminhaoRepository.salvar(caminhao);
+    public Caminhao save (@RequestBody Caminhao caminhao){
+        return caminhaoRepository.save(caminhao);
     }
 }

@@ -3,10 +3,9 @@ import br.com.felipeltda.trabalho.sistema.domain.model.Carro;
 import java.util.List;
 
 public interface CarrosRepository {
-    List<Carro> listar();
-    Carro buscar(String id);
-    Carro salvar(Carro carro);
-    Carro cadastrar();
-    void remover(Carro carro);
+    List<Carro> findAll();
+    Carro findById(String id);
+    Carro save(Carro carro);
+    void deleteById(Carro carro);
 
 }
