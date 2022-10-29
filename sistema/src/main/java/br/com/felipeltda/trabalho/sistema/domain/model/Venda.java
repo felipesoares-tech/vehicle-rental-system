@@ -1,8 +1,12 @@
 package br.com.felipeltda.trabalho.sistema.domain.model;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -12,10 +16,10 @@ public class Venda {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    /*@ManyToOne
-    @JoinColumn(nullable = false)
-    private Veiculo veiculo;
-    */
+
+    @ManyToMany
+    private List<Veiculo> veiculos;
+
 
     @ManyToOne
     @JoinColumn(nullable = false)
