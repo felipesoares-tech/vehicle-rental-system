@@ -30,6 +30,6 @@ public abstract class Veiculo {
     @Column(length = 20)
     protected Double preco;
     @Id
-    @Column(length = 7, nullable = false)
+    @Column(length = 8, nullable = false)
     protected String placa;
 }
