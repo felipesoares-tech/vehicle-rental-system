@@ -1,12 +1,11 @@
 package br.com.felipeltda.trabalho.sistema.api.controller;
-
-
 import br.com.felipeltda.trabalho.sistema.domain.model.Carro;
 import br.com.felipeltda.trabalho.sistema.domain.repository.CarrosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/carros")
@@ -19,7 +18,7 @@ public class CarroController {
     }
 
     @GetMapping("/{carroId}")
-    public Carro findById(@PathVariable String carroId){
+    public Optional<Carro> findById(@PathVariable String carroId){
         return carrosRepository.findById(carroId);
     }
     @PostMapping
@@ -30,6 +29,6 @@ public class CarroController {
 
     @DeleteMapping
     public void deleteById(@RequestBody Carro carro){
-        carrosRepository.deleteById(carro);
+        carrosRepository.deleteById(carro.getPlaca());
     }
 }

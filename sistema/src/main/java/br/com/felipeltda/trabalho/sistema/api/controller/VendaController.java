@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/vendas")
@@ -20,7 +21,7 @@ public class VendaController {
     }
 
     @GetMapping("/{vendaId}")
-    public Venda findById(@PathVariable Integer vendaId){
+    public Optional<Venda> findById(@PathVariable Integer vendaId){
         return vendasRepository.findById(vendaId);
     }
 
@@ -32,6 +33,6 @@ public class VendaController {
 
     @DeleteMapping
     public void deleteById(@RequestBody Venda venda){
-        vendasRepository.deleteById(venda);
+        vendasRepository.deleteById(venda.getId());
     }
 }

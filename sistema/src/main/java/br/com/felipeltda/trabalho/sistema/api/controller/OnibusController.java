@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/onibus")
@@ -19,7 +20,7 @@ public class OnibusController {
     }
 
     @GetMapping("/{onibusId}")
-    public Onibus findById(@PathVariable String onibusId){
+    public Optional<Onibus> findById(@PathVariable String onibusId){
         return onibusRepository.findById(onibusId);
     }
 
@@ -31,6 +32,6 @@ public class OnibusController {
 
     @DeleteMapping
     public void deleteById(@RequestBody Onibus onibus){
-        onibusRepository.deleteById(onibus);
+        onibusRepository.deleteById(onibus.getPlaca());
     }
 }

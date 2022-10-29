@@ -1,12 +1,7 @@
 package br.com.felipeltda.trabalho.sistema.domain.repository;
 import br.com.felipeltda.trabalho.sistema.domain.model.Cliente;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
+public interface ClienteRepository extends JpaRepository<Cliente,String> {
 
-public interface ClienteRepository {
-
-    List<Cliente> findAll();
-    Cliente findById(Integer id);
-    Cliente save(Cliente cliente);
-    void deleteById(Cliente cliente);
 }

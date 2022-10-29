@@ -1,12 +1,7 @@
 package br.com.felipeltda.trabalho.sistema.domain.repository;
 import br.com.felipeltda.trabalho.sistema.domain.model.Onibus;
-import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface OnibusRepository {
-
-    List<Onibus> findAll();
-    Onibus findById(String id);
-    Onibus save(Onibus onibus);
-    void deleteById(Onibus onibus);
+public interface OnibusRepository extends JpaRepository<Onibus,String> {
 
 }

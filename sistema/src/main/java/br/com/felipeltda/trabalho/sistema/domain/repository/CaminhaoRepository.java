@@ -1,10 +1,9 @@
 package br.com.felipeltda.trabalho.sistema.domain.repository;
 import br.com.felipeltda.trabalho.sistema.domain.model.Caminhao;
-import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface CaminhaoRepository {
-    List<Caminhao> findAll();
-    Caminhao findById(String id);
-    Caminhao save(Caminhao caminhao);
-    void deleteById(Caminhao caminhao);
+@Repository
+public interface CaminhaoRepository extends JpaRepository<Caminhao,String> {
+
 }

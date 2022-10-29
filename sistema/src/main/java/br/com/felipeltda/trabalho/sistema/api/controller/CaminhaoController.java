@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/caminhoes")
@@ -17,7 +18,7 @@ public class CaminhaoController {
     }
 
     @GetMapping("/{caminhaoId}")
-    public Caminhao findById(@PathVariable String caminhaoId){
+    public Optional<Caminhao> findById(@PathVariable String caminhaoId){
         return caminhaoRepository.findById(caminhaoId);
     }
     @PostMapping
@@ -28,6 +29,6 @@ public class CaminhaoController {
 
     @DeleteMapping
     public void deleteById(@RequestBody Caminhao caminhao){
-        caminhaoRepository.deleteById(caminhao);
+        caminhaoRepository.deleteById(caminhao.getPlaca());
     }
 }

@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/clientes")
@@ -20,7 +21,7 @@ public class ClienteController {
     }
 
     @GetMapping("/{clienteId}")
-    public Cliente findById(@PathVariable Integer clienteId){
+    public Optional<Cliente> findById(@PathVariable String clienteId){
         return clienteRepository.findById(clienteId);
     }
 
@@ -32,6 +33,6 @@ public class ClienteController {
 
     @DeleteMapping
     public void deleteById(@RequestBody Cliente cliente){
-        clienteRepository.deleteById(cliente);
+        clienteRepository.deleteById(cliente.getCpf());
     }
 }

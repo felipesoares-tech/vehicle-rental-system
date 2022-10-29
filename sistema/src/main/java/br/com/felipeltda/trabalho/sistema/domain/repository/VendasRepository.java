@@ -1,10 +1,7 @@
 package br.com.felipeltda.trabalho.sistema.domain.repository;
 import br.com.felipeltda.trabalho.sistema.domain.model.Venda;
-import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface VendasRepository {
-    List<Venda> findAll();
-    Venda findById(Integer id);
-    Venda save(Venda venda);
-    void deleteById(Venda venda);
+public interface VendasRepository extends JpaRepository<Venda,Integer> {
+
 }
