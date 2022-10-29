@@ -4,6 +4,7 @@ import javax.persistence.*;
 
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @MappedSuperclass
 public abstract class Veiculo {
     @Column(length = 10)

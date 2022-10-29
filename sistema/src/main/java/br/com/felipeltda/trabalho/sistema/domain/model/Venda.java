@@ -1,5 +1,4 @@
 package br.com.felipeltda.trabalho.sistema.domain.model;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -13,9 +12,10 @@ public class Venda {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne
+    /*@ManyToOne
     @JoinColumn(nullable = false)
-    private Carro carro;
+    private Veiculo veiculo;
+    */
 
     @ManyToOne
     @JoinColumn(nullable = false)
