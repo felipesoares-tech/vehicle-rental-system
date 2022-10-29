@@ -19,7 +19,7 @@ public class ClienteController {
         return clienteRepository.findAll();
     }
 
-    @GetMapping("/{clientesId}")
+    @GetMapping("/{clienteId}")
     public Cliente findById(@PathVariable Integer clienteId){
         return clienteRepository.findById(clienteId);
     }

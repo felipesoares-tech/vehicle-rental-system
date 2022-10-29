@@ -25,4 +25,9 @@ public class CaminhaoController {
     public Caminhao save (@RequestBody Caminhao caminhao){
         return caminhaoRepository.save(caminhao);
     }
+
+    @DeleteMapping
+    public void deleteById(@RequestBody Caminhao caminhao){
+        caminhaoRepository.deleteById(caminhao);
+    }
 }
