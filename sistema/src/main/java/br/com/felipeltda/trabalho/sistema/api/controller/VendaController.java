@@ -1,19 +1,21 @@
 package br.com.felipeltda.trabalho.sistema.api.controller;
-
+import br.com.felipeltda.trabalho.sistema.domain.exception.EntidadeNaoEncontrada;
 import br.com.felipeltda.trabalho.sistema.domain.model.Venda;
 import br.com.felipeltda.trabalho.sistema.domain.repository.VendasRepository;
+import br.com.felipeltda.trabalho.sistema.domain.service.VendaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
-import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/vendas")
 public class VendaController {
     @Autowired
     VendasRepository vendasRepository;
+    @Autowired
+    VendaService vendaService;
 
     @GetMapping
     public List<Venda> findAll(){
@@ -21,14 +23,15 @@ public class VendaController {
     }
 
     @GetMapping("/{vendaId}")
-    public Optional<Venda> findById(@PathVariable Integer vendaId){
-        return vendasRepository.findById(vendaId);
+    public Venda findById(@PathVariable Integer vendaId){
+        return vendasRepository.findById(vendaId)
+                .orElseThrow(() -> new EntidadeNaoEncontrada(""));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Venda save (@RequestBody Venda venda){
-        return vendasRepository.save(venda);
+        return vendaService.realizarVenda(venda);
     }
 
     @DeleteMapping
