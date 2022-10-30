@@ -1,5 +1,5 @@
 package br.com.felipeltda.trabalho.sistema.api.controller;
-import br.com.felipeltda.trabalho.sistema.domain.exception.EntidadeNaoEncontrada;
+import br.com.felipeltda.trabalho.sistema.domain.exception.EntidadeInexistenteException;
 import br.com.felipeltda.trabalho.sistema.domain.model.Venda;
 import br.com.felipeltda.trabalho.sistema.domain.repository.VendasRepository;
 import br.com.felipeltda.trabalho.sistema.domain.service.VendaService;
@@ -25,7 +25,7 @@ public class VendaController {
     @GetMapping("/{vendaId}")
     public Venda findById(@PathVariable Integer vendaId){
         return vendasRepository.findById(vendaId)
-                .orElseThrow(() -> new EntidadeNaoEncontrada("VENDA NÃO ENCONTRADO!"));
+                .orElseThrow(() -> new EntidadeInexistenteException("VENDA NÃO ENCONTRADO!"));
     }
 
     @PostMapping

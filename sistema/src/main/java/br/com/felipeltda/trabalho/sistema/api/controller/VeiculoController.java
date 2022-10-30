@@ -1,6 +1,6 @@
 package br.com.felipeltda.trabalho.sistema.api.controller;
 
-import br.com.felipeltda.trabalho.sistema.domain.exception.EntidadeNaoEncontrada;
+import br.com.felipeltda.trabalho.sistema.domain.exception.EntidadeInexistenteException;
 import br.com.felipeltda.trabalho.sistema.domain.model.Veiculo;
 import br.com.felipeltda.trabalho.sistema.domain.repository.VeiculosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ public class VeiculoController {
 
     @GetMapping("/{veiculoId}")
     public Veiculo findById(@PathVariable String veiculoId){
-        return veiculosRepository.findById(veiculoId).orElseThrow(() -> new EntidadeNaoEncontrada("PLACA NÃO ENCONTRADO!"));
+        return veiculosRepository.findById(veiculoId).orElseThrow(() -> new EntidadeInexistenteException("PLACA NÃO ENCONTRADO!"));
     }
 
     @PostMapping
