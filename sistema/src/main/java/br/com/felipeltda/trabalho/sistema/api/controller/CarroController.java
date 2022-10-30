@@ -1,4 +1,5 @@
 package br.com.felipeltda.trabalho.sistema.api.controller;
+import br.com.felipeltda.trabalho.sistema.domain.exception.EntidadeNaoEncontrada;
 import br.com.felipeltda.trabalho.sistema.domain.model.Carro;
 import br.com.felipeltda.trabalho.sistema.domain.repository.CarrosRepository;
 import br.com.felipeltda.trabalho.sistema.domain.service.CarroService;
@@ -23,8 +24,8 @@ public class CarroController {
     }
 
     @GetMapping("/{carroId}")
-    public Optional<Carro> findById(@PathVariable String carroId){
-        return carrosRepository.findById(carroId);
+    public Carro findById(@PathVariable String carroId){
+        return carrosRepository.findById(carroId).orElseThrow(() -> new EntidadeNaoEncontrada("PLACA NÃO ENCONTRADO!"));
     }
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)

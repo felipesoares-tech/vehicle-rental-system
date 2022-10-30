@@ -25,7 +25,7 @@ public class VendaController {
     @GetMapping("/{vendaId}")
     public Venda findById(@PathVariable Integer vendaId){
         return vendasRepository.findById(vendaId)
-                .orElseThrow(() -> new EntidadeNaoEncontrada(""));
+                .orElseThrow(() -> new EntidadeNaoEncontrada("VENDA NÃO ENCONTRADO!"));
     }
 
     @PostMapping

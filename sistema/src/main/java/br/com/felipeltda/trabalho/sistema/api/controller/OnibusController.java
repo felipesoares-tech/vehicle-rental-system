@@ -1,4 +1,5 @@
 package br.com.felipeltda.trabalho.sistema.api.controller;
+import br.com.felipeltda.trabalho.sistema.domain.exception.EntidadeNaoEncontrada;
 import br.com.felipeltda.trabalho.sistema.domain.model.Onibus;
 import br.com.felipeltda.trabalho.sistema.domain.repository.OnibusRepository;
 import br.com.felipeltda.trabalho.sistema.domain.service.OnibusService;
@@ -24,8 +25,8 @@ public class OnibusController {
     }
 
     @GetMapping("/{onibusId}")
-    public Optional<Onibus> findById(@PathVariable String onibusId){
-        return onibusRepository.findById(onibusId);
+    public Onibus findById(@PathVariable String onibusId){
+        return onibusRepository.findById(onibusId).orElseThrow(() -> new EntidadeNaoEncontrada("PLACA NÃO ENCONTRADO!"));
 
     }
 

@@ -1,4 +1,5 @@
 package br.com.felipeltda.trabalho.sistema.api.controller;
+import br.com.felipeltda.trabalho.sistema.domain.exception.EntidadeNaoEncontrada;
 import br.com.felipeltda.trabalho.sistema.domain.model.Caminhao;
 import br.com.felipeltda.trabalho.sistema.domain.repository.CaminhaoRepository;
 import br.com.felipeltda.trabalho.sistema.domain.service.CaminhaoService;
@@ -23,8 +24,8 @@ public class CaminhaoController {
     }
 
     @GetMapping("/{caminhaoId}")
-    public Optional<Caminhao> findById(@PathVariable String caminhaoId){
-        return caminhaoRepository.findById(caminhaoId);
+    public Caminhao findById(@PathVariable String caminhaoId){
+        return caminhaoRepository.findById(caminhaoId).orElseThrow(() -> new EntidadeNaoEncontrada("PLACA NÃO ENCONTRADO!"));
     }
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)

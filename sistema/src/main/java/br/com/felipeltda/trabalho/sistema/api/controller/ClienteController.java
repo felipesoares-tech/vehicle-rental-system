@@ -1,5 +1,6 @@
 package br.com.felipeltda.trabalho.sistema.api.controller;
 
+import br.com.felipeltda.trabalho.sistema.domain.exception.EntidadeNaoEncontrada;
 import br.com.felipeltda.trabalho.sistema.domain.model.Cliente;
 import br.com.felipeltda.trabalho.sistema.domain.repository.ClienteRepository;
 import br.com.felipeltda.trabalho.sistema.domain.service.ClienteService;
@@ -25,8 +26,8 @@ public class ClienteController {
     }
 
     @GetMapping("/{clienteId}")
-    public Optional<Cliente> findById(@PathVariable String clienteId){
-        return clienteRepository.findById(clienteId);
+    public Cliente findById(@PathVariable String clienteId){
+        return clienteRepository.findById(clienteId).orElseThrow(() -> new EntidadeNaoEncontrada("CPF NÃO ENCONTRADO!"));
     }
 
     @PostMapping
