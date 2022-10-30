@@ -4,7 +4,9 @@ import br.com.felipeltda.trabalho.sistema.domain.model.Carro;
 import br.com.felipeltda.trabalho.sistema.domain.repository.CarrosRepository;
 import br.com.felipeltda.trabalho.sistema.domain.service.CarroService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -33,7 +35,12 @@ public class CarroController {
     }
 
     @DeleteMapping
-    public void deleteById(@RequestBody Carro carro){
-        carrosRepository.deleteById(carro.getPlaca());
+    public ResponseEntity<Object> deleteById(@RequestBody Carro carro){
+        try{
+            carrosRepository.deleteById(carro.getPlaca());
+            return ResponseEntity.status(HttpStatus.OK).body(carro);
+        }catch (EmptyResultDataAccessException e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("ENTIDADE NÃO ENCONTRADA");
+        }
     }
 }

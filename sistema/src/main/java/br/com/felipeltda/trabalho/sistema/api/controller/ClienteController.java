@@ -5,7 +5,9 @@ import br.com.felipeltda.trabalho.sistema.domain.model.Cliente;
 import br.com.felipeltda.trabalho.sistema.domain.repository.ClienteRepository;
 import br.com.felipeltda.trabalho.sistema.domain.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,7 +38,12 @@ public class ClienteController {
     }
 
     @DeleteMapping
-    public void deleteById(@RequestBody Cliente cliente){
-        clienteRepository.deleteById(cliente.getCpf());
+    public ResponseEntity<Object> deleteById(@RequestBody Cliente cliente){
+        try{
+            clienteService.removerCliente(cliente);
+            return ResponseEntity.status(HttpStatus.OK).body(cliente);
+        }catch (EmptyResultDataAccessException e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("ENTIDADE NÃO ENCONTRADA");
+        }
     }
 }
