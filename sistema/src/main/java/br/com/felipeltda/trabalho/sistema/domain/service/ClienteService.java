@@ -1,6 +1,7 @@
 package br.com.felipeltda.trabalho.sistema.domain.service;
 
 import br.com.felipeltda.trabalho.sistema.domain.exception.ChavePrimariaException;
+import br.com.felipeltda.trabalho.sistema.domain.exception.EntidadeDuplicadaException;
 import br.com.felipeltda.trabalho.sistema.domain.model.Cliente;
 import br.com.felipeltda.trabalho.sistema.domain.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,11 @@ public class ClienteService {
     ClienteRepository clienteRepository;
 
     public Cliente cadastrarCliente(Cliente cliente){
+
+        if (clienteRepository.existsById(cliente.getCpf())){
+            throw new EntidadeDuplicadaException("ENTIDADE JÁ CADASTRADA");
+        }
+
         try{
             return clienteRepository.save(cliente);
         }catch (JpaSystemException e){
