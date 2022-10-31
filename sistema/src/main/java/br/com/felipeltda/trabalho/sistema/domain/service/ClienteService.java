@@ -19,7 +19,6 @@ public class ClienteService {
     ClienteRepository clienteRepository;
 
     public Cliente cadastrarCliente(Cliente cliente) {
-
         if (clienteRepository.existsById(cliente.getCpf())) {
             throw new EntidadeDuplicadaException("ENTIDADE JÁ CADASTRADA");
         }

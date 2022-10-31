@@ -3,11 +3,14 @@ import br.com.felipeltda.trabalho.sistema.domain.exception.EntidadeInexistenteEx
 import br.com.felipeltda.trabalho.sistema.domain.model.Caminhao;
 import br.com.felipeltda.trabalho.sistema.domain.repository.CaminhaoRepository;
 import br.com.felipeltda.trabalho.sistema.domain.service.CaminhaoService;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
 @RestController
@@ -29,9 +32,13 @@ public class CaminhaoController {
         return caminhaoRepository.findById(caminhaoId).orElseThrow(() -> new EntidadeInexistenteException("PLACA NÃO ENCONTRADO!"));
     }
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public Caminhao save (@RequestBody Caminhao caminhao){
-        return caminhaoService.cadastrarCaminhao(caminhao);
+    public ResponseEntity<Object> save (@RequestBody Caminhao caminhao){
+        try{
+            caminhaoService.cadastrarCaminhao(caminhao);
+            return ResponseEntity.status(HttpStatus.CREATED).body(caminhao);
+        }catch (RuntimeException e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("PLACA INFORMADA JÁ CONSTA NO BANCO DE DADOS");
+        }
     }
 
     @DeleteMapping

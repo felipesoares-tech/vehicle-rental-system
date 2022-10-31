@@ -1,4 +1,5 @@
 package br.com.felipeltda.trabalho.sistema.api.controller;
+import br.com.felipeltda.trabalho.sistema.domain.exception.EntidadeDuplicadaException;
 import br.com.felipeltda.trabalho.sistema.domain.exception.EntidadeInexistenteException;
 import br.com.felipeltda.trabalho.sistema.domain.model.Carro;
 import br.com.felipeltda.trabalho.sistema.domain.repository.CarrosRepository;
@@ -29,9 +30,14 @@ public class CarroController {
         return carrosRepository.findById(carroId).orElseThrow(() -> new EntidadeInexistenteException("PLACA NÃO ENCONTRADO!"));
     }
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public Carro save (@RequestBody Carro carro){
-        return carroService.cadastrarCarro(carro);
+    public ResponseEntity<Object> save (@RequestBody Carro carro){
+        try{
+            carroService.cadastrarCarro(carro);
+            return ResponseEntity.status(HttpStatus.CREATED).body(carro);
+        }catch (RuntimeException e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("PLACA INFORMADA JÁ CONSTA NO BANCO DE DADOS");
+        }
+
     }
 
     @DeleteMapping

@@ -32,9 +32,14 @@ public class OnibusController {
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public Onibus save (@RequestBody Onibus onibus){
-        return onibusService.cadastrarOnibus(onibus);
+    public ResponseEntity<Object> save (@RequestBody Onibus onibus){
+        try{
+            onibusService.cadastrarOnibus(onibus);
+            return ResponseEntity.status(HttpStatus.CREATED).body(onibus);
+        }catch (RuntimeException e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("PLACA INFORMADA JÁ CONSTA NO BANCO DE DADOS");
+        }
+
     }
 
     @DeleteMapping

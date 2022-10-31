@@ -14,9 +14,10 @@ public class CaminhaoService {
     private CaminhaoRepository caminhaoRepository;
 
     public Caminhao cadastrarCaminhao(Caminhao caminhao){
-        if (caminhaoRepository.existsById(caminhao.getPlaca())){
+        if (caminhaoRepository.existsById(caminhao.getPlaca())) {
             throw new EntidadeDuplicadaException("ENTIDADE JÁ CADASTRADA");
         }
+
 
         try{
             return caminhaoRepository.save(caminhao);

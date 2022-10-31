@@ -14,10 +14,10 @@ public class OnibusService {
     OnibusRepository onibusRepository;
 
     public Onibus cadastrarOnibus(Onibus onibus){
-        if (onibusRepository.existsById(onibus.getPlaca())){
+        if (onibusRepository.existsById(onibus.getPlaca())) {
             throw new EntidadeDuplicadaException("ENTIDADE JÁ CADASTRADA");
         }
-        
+
         try{
             return onibusRepository.save(onibus);
         }catch (JpaSystemException e){

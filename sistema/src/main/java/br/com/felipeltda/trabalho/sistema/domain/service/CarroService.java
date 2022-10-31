@@ -15,9 +15,10 @@ public class CarroService {
     CarrosRepository carrosRepository;
 
     public Carro cadastrarCarro(Carro carro){
-        if (carrosRepository.existsById(carro.getPlaca())){
+        if (carrosRepository.existsById(carro.getPlaca())) {
             throw new EntidadeDuplicadaException("ENTIDADE JÁ CADASTRADA");
         }
+
         try{
             return carrosRepository.save(carro);
         }catch (JpaSystemException e){
