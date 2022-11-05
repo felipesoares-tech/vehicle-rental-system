@@ -7,17 +7,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CaminhaoService {
 
     @Autowired
     private CaminhaoRepository caminhaoRepository;
 
-    public Caminhao cadastrarCaminhao(Caminhao caminhao){
+    public void cadastrarCaminhao(Caminhao caminhao){
         if (caminhaoRepository.existsById(caminhao.getPlaca())) {
             throw new EntidadeDuplicadaException("ENTIDADE JÁ CADASTRADA");
         }
-        return  caminhaoRepository.save(caminhao);
+        caminhaoRepository.save(caminhao);
 
     }
 
@@ -27,5 +29,13 @@ public class CaminhaoService {
         }catch (EmptyResultDataAccessException e){
             throw new EntidadeInexistenteException("ENTIDADE NÃO ENCONTRADA");
         }
+    }
+
+    public List<Caminhao> listarCaminhoes(){
+        return caminhaoRepository.findAll();
+    }
+
+    public Caminhao consultarCaminhao(String caminhaoId){
+        return caminhaoRepository.findById(caminhaoId).orElseThrow(() -> new EntidadeInexistenteException("PLACA NÃO ENCONTRADO!"));
     }
 }

@@ -8,18 +8,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class OnibusService {
 
     @Autowired
     OnibusRepository onibusRepository;
 
-    public Onibus cadastrarOnibus(Onibus onibus) {
+    public void cadastrarOnibus(Onibus onibus) {
         if (onibusRepository.existsById(onibus.getPlaca())) {
             throw new EntidadeDuplicadaException("ENTIDADE JÁ CADASTRADA");
         }
 
-        return onibusRepository.save(onibus);
+        onibusRepository.save(onibus);
 
     }
 
@@ -29,5 +31,13 @@ public class OnibusService {
         }catch (EmptyResultDataAccessException e){
             throw new EntidadeInexistenteException("ENTIDADE NÃO ENCONTRADA");
         }
+    }
+
+    public List<Onibus> listarOnibus(){
+        return onibusRepository.findAll();
+    }
+
+    public Onibus consultarOnibus(String onibusId){
+        return onibusRepository.findById(onibusId).orElseThrow(() -> new EntidadeInexistenteException("PLACA NÃO ENCONTRADO!"));
     }
 }

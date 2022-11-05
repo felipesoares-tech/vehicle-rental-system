@@ -2,7 +2,6 @@ package br.com.felipeltda.trabalho.sistema.api.controller;
 import br.com.felipeltda.trabalho.sistema.domain.exception.EntidadeDuplicadaException;
 import br.com.felipeltda.trabalho.sistema.domain.exception.EntidadeInexistenteException;
 import br.com.felipeltda.trabalho.sistema.domain.model.Veiculo;
-import br.com.felipeltda.trabalho.sistema.domain.repository.VeiculosRepository;
 import br.com.felipeltda.trabalho.sistema.domain.service.VeiculoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,21 +12,17 @@ import java.util.List;
 @RestController
 @RequestMapping("/veiculos")
 public class VeiculoController {
-
-    @Autowired
-    VeiculosRepository veiculosRepository;
-
     @Autowired
     VeiculoService veiculoService;
 
     @GetMapping
     public List<Veiculo> findAll(){
-        return veiculosRepository.findAll();
+        return veiculoService.listarVeiculos();
     }
 
     @GetMapping("/{veiculoId}")
     public Veiculo findById(@PathVariable String veiculoId){
-        return veiculosRepository.findById(veiculoId).orElseThrow(() -> new EntidadeInexistenteException("PLACA NÃO ENCONTRADO!"));
+        return veiculoService.consultarVeiculo(veiculoId);
     }
 
     @PostMapping

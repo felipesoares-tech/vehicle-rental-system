@@ -8,18 +8,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ClienteService {
 
     @Autowired
     ClienteRepository clienteRepository;
 
-    public Cliente cadastrarCliente(Cliente cliente) {
+    public void cadastrarCliente(Cliente cliente) {
         if (clienteRepository.existsById(cliente.getCpf())) {
             throw new EntidadeDuplicadaException("ENTIDADE JÁ CADASTRADA");
         }
 
-        return clienteRepository.save(cliente);
+        clienteRepository.save(cliente);
     }
 
     public void deletarCliente(Cliente cliente) {
@@ -28,6 +30,14 @@ public class ClienteService {
         }catch (EmptyResultDataAccessException e){
             throw new EntidadeInexistenteException("ENTIDADE NÃO ENCONTRADA");
         }
+    }
+
+    public List<Cliente> listarClientes(){
+        return clienteRepository.findAll();
+    }
+
+    public Cliente consultarCliente(String clienteId){
+        return clienteRepository.findById(clienteId).orElseThrow(() -> new EntidadeInexistenteException("CPF NÃO ENCONTRADO!"));
     }
 
 }

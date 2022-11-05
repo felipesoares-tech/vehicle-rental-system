@@ -8,17 +8,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CarroService {
 
     @Autowired
     CarrosRepository carrosRepository;
 
-    public Carro cadastrarCarro(Carro carro){
+    public void cadastrarCarro(Carro carro){
         if (carrosRepository.existsById(carro.getPlaca())) {
             throw new EntidadeDuplicadaException("ENTIDADE JÁ CADASTRADA");
         }
-        return  carrosRepository.save(carro);
+        carrosRepository.save(carro);
     }
 
     public void deletarCarro(Carro carro){
@@ -27,5 +29,13 @@ public class CarroService {
         }catch (EmptyResultDataAccessException e){
             throw new EntidadeInexistenteException("ENTIDADE NÃO ENCONTRADA");
         }
+    }
+
+    public List<Carro> listarCarros(){
+        return carrosRepository.findAll();
+    }
+
+    public Carro consultarCarro(String carroId){
+        return carrosRepository.findById(carroId).orElseThrow(() -> new EntidadeInexistenteException("PLACA NÃO ENCONTRADO!"));
     }
 }
