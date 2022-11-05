@@ -41,7 +41,12 @@ public class VeiculoController {
     }
 
     @DeleteMapping
-    public void deleteById(@RequestBody Veiculo veiculo){
-        veiculosRepository.deleteById(veiculo.getPlaca());
+    public ResponseEntity<Object> deleteById(@RequestBody Veiculo veiculo){
+        try {
+            veiculoService.deletarVeiculo(veiculo);
+            return ResponseEntity.status(HttpStatus.OK).body(veiculo);
+        }catch (EntidadeInexistenteException e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("ENTIDADE NÃO ENCONTRADA!");
+        }
     }
 }

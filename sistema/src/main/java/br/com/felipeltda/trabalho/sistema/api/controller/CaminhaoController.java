@@ -4,14 +4,10 @@ import br.com.felipeltda.trabalho.sistema.domain.exception.EntidadeInexistenteEx
 import br.com.felipeltda.trabalho.sistema.domain.model.Caminhao;
 import br.com.felipeltda.trabalho.sistema.domain.repository.CaminhaoRepository;
 import br.com.felipeltda.trabalho.sistema.domain.service.CaminhaoService;
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
 @RestController
@@ -45,10 +41,10 @@ public class CaminhaoController {
     @DeleteMapping
     public ResponseEntity<Object> deleteById(@RequestBody Caminhao caminhao){
         try{
-            caminhaoRepository.deleteById(caminhao.getPlaca());
+            caminhaoService.deletarCaminhao(caminhao);
             return ResponseEntity.status(HttpStatus.OK).body(caminhao);
-        }catch (EmptyResultDataAccessException e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("ENTIDADE NÃO ENCONTRADA");
+        }catch (EntidadeInexistenteException e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("ENTIDADE INEXISTENTE");
         }
     }
 }

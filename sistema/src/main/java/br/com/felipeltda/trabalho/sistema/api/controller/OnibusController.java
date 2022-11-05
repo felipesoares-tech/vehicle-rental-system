@@ -46,9 +46,9 @@ public class OnibusController {
     @DeleteMapping
     public ResponseEntity<Object> deleteById(@RequestBody Onibus onibus){
         try {
-            onibusRepository.deleteById(onibus.getPlaca());
+            onibusService.deletarOnibus(onibus);
             return ResponseEntity.status(HttpStatus.OK).body(onibus);
-        }catch (EmptyResultDataAccessException e){
+        }catch (EntidadeInexistenteException e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("ENTIDADE NÃO ENCONTRADA!");
         }
 

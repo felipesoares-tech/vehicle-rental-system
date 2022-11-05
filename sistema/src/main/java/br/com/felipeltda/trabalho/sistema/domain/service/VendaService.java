@@ -1,8 +1,10 @@
 package br.com.felipeltda.trabalho.sistema.domain.service;
+import br.com.felipeltda.trabalho.sistema.domain.exception.EntidadeInexistenteException;
 import br.com.felipeltda.trabalho.sistema.domain.model.Venda;
 import br.com.felipeltda.trabalho.sistema.domain.repository.VeiculosRepository;
 import br.com.felipeltda.trabalho.sistema.domain.repository.VendasRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 
@@ -18,5 +20,13 @@ public class VendaService {
     public Venda realizarVenda(Venda venda){
         return vendasRepository.save(venda);
 
+    }
+
+    public void deletarVenda(Venda venda){
+        try{
+            vendasRepository.deleteById(venda.getId());
+        }catch (EmptyResultDataAccessException e){
+            throw new EntidadeInexistenteException("ENTIDADE NÃO ENCONTRADA");
+        }
     }
 }

@@ -43,9 +43,9 @@ public class CarroController {
     @DeleteMapping
     public ResponseEntity<Object> deleteById(@RequestBody Carro carro){
         try{
-            carrosRepository.deleteById(carro.getPlaca());
+            carroService.deletarCarro(carro);
             return ResponseEntity.status(HttpStatus.OK).body(carro);
-        }catch (EmptyResultDataAccessException e){
+        }catch (EntidadeInexistenteException e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("ENTIDADE NÃO ENCONTRADA");
         }
     }

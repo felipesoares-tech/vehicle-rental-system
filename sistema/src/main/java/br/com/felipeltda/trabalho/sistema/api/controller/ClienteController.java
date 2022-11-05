@@ -46,9 +46,9 @@ public class ClienteController {
     @DeleteMapping
     public ResponseEntity<Object> deleteById(@RequestBody Cliente cliente){
         try{
-            clienteService.removerCliente(cliente);
+            clienteService.deletarCliente(cliente);
             return ResponseEntity.status(HttpStatus.OK).body(cliente);
-        }catch (EmptyResultDataAccessException e){
+        }catch (EntidadeInexistenteException e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("ENTIDADE NÃO ENCONTRADA");
         }
     }
