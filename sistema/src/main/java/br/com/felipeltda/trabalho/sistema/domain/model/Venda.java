@@ -1,16 +1,13 @@
 package br.com.felipeltda.trabalho.sistema.domain.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-
+import lombok.Getter;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
 @Entity
-@Data
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Getter
 public class Venda {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
