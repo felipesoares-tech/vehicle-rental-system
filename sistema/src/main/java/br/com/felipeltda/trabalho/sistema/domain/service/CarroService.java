@@ -6,6 +6,7 @@ import br.com.felipeltda.trabalho.sistema.domain.model.Carro;
 import br.com.felipeltda.trabalho.sistema.domain.repository.CarrosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,11 +17,11 @@ public class CarroService {
     @Autowired
     CarrosRepository carrosRepository;
 
-    public void cadastrarCarro(Carro carro){
+    public Carro cadastrarCarro(Carro carro){
         if (carrosRepository.existsById(carro.getPlaca())) {
             throw new EntidadeDuplicadaException("ENTIDADE JÁ CADASTRADA");
         }
-        carrosRepository.save(carro);
+       return carrosRepository.save(carro);
     }
 
     public void deletarCarro(Carro carro){
