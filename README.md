@@ -6,19 +6,19 @@
 ## Veículos 🚘
 - [x] Cadastrar;
 - [x] Consultar;
-- [ ] Atualizar;
+- [x] Atualizar;
 - [x] Remover;
 
 ## Clientes🙎🏻‍♂
 - [x] Cadastrar;
 - [x] Consultar;
-- [ ] Atualizar;
+- [x] Atualizar;
 - [x] Remover;
 
 ## Vendas 📈
 - [x] Cadastrar;
 - [x] Consultar;
-- [ ] Atualizar;
+- [x] Atualizar;
 - [x] Remover;
 
 <h2 align="center"> Modelo: </h2>
