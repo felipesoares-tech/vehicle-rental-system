@@ -34,7 +34,7 @@ public class CarroController {
         try{
             carroService.cadastrarCarro(carro);
             return ResponseEntity.status(HttpStatus.CREATED).body(carro);
-        }catch (RuntimeException e){
+        }catch (EntidadeDuplicadaException e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("PLACA INFORMADA JÁ CONSTA NO BANCO DE DADOS");
         }
 

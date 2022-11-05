@@ -12,10 +12,12 @@ public class VeiculoService {
     @Autowired
     VeiculosRepository veiculosRepository;
 
-    public Veiculo cadastrarVeiculo(Veiculo veiculo){
-        if (veiculosRepository.existsById(veiculo.getPlaca())){
+    public Veiculo cadastrarVeiculo(Veiculo veiculo) {
+        if (veiculosRepository.existsById(veiculo.getPlaca())) {
             throw new EntidadeDuplicadaException("ENTIDADE JÁ CADASTRADA");
         }
-        return  veiculosRepository.save(veiculo);
+
+        return veiculosRepository.save(veiculo);
+
     }
 }

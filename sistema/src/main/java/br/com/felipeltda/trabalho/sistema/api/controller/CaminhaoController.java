@@ -1,4 +1,5 @@
 package br.com.felipeltda.trabalho.sistema.api.controller;
+import br.com.felipeltda.trabalho.sistema.domain.exception.EntidadeDuplicadaException;
 import br.com.felipeltda.trabalho.sistema.domain.exception.EntidadeInexistenteException;
 import br.com.felipeltda.trabalho.sistema.domain.model.Caminhao;
 import br.com.felipeltda.trabalho.sistema.domain.repository.CaminhaoRepository;
@@ -36,7 +37,7 @@ public class CaminhaoController {
         try{
             caminhaoService.cadastrarCaminhao(caminhao);
             return ResponseEntity.status(HttpStatus.CREATED).body(caminhao);
-        }catch (RuntimeException e){
+        }catch (EntidadeDuplicadaException e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("PLACA INFORMADA JÁ CONSTA NO BANCO DE DADOS");
         }
     }

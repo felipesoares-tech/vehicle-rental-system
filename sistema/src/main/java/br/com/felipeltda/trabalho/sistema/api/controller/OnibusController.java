@@ -1,4 +1,5 @@
 package br.com.felipeltda.trabalho.sistema.api.controller;
+import br.com.felipeltda.trabalho.sistema.domain.exception.EntidadeDuplicadaException;
 import br.com.felipeltda.trabalho.sistema.domain.exception.EntidadeInexistenteException;
 import br.com.felipeltda.trabalho.sistema.domain.model.Onibus;
 import br.com.felipeltda.trabalho.sistema.domain.repository.OnibusRepository;
@@ -36,7 +37,7 @@ public class OnibusController {
         try{
             onibusService.cadastrarOnibus(onibus);
             return ResponseEntity.status(HttpStatus.CREATED).body(onibus);
-        }catch (RuntimeException e){
+        }catch (EntidadeDuplicadaException e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("PLACA INFORMADA JÁ CONSTA NO BANCO DE DADOS");
         }
 

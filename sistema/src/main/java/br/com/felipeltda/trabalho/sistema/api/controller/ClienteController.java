@@ -1,5 +1,6 @@
 package br.com.felipeltda.trabalho.sistema.api.controller;
 
+import br.com.felipeltda.trabalho.sistema.domain.exception.EntidadeDuplicadaException;
 import br.com.felipeltda.trabalho.sistema.domain.exception.EntidadeInexistenteException;
 import br.com.felipeltda.trabalho.sistema.domain.model.Cliente;
 import br.com.felipeltda.trabalho.sistema.domain.repository.ClienteRepository;
@@ -32,9 +33,14 @@ public class ClienteController {
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public Cliente save (@RequestBody Cliente cliente){
-        return clienteService.cadastrarCliente(cliente);
+    public ResponseEntity<Object> save (@RequestBody Cliente cliente){
+        try{
+            clienteService.cadastrarCliente(cliente);
+            return ResponseEntity.status(HttpStatus.CREATED).body(cliente);
+        }catch (EntidadeDuplicadaException e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("CPF INFORMADO JÁ CONSTA NO BANCO DE DADOS");
+        }
+
     }
 
     @DeleteMapping
