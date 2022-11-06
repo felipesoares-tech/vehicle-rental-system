@@ -1,4 +1,5 @@
 package br.com.felipeltda.trabalho.sistema.api.controller;
+import br.com.felipeltda.trabalho.sistema.domain.exception.CampoNaoInformadoException;
 import br.com.felipeltda.trabalho.sistema.domain.exception.EntidadeInexistenteException;
 import br.com.felipeltda.trabalho.sistema.domain.model.Venda;
 import br.com.felipeltda.trabalho.sistema.domain.repository.VendasRepository;
@@ -33,8 +34,15 @@ public class VendaController {
 
     @PostMapping
     public ResponseEntity<Object> save (@RequestBody Venda venda){
-        vendaService.realizarVenda(venda);
-        return ResponseEntity.status(HttpStatus.CREATED).body(venda);
+        try{
+            vendaService.realizarVenda(venda);
+            return ResponseEntity.status(HttpStatus.CREATED).body(venda);
+        }catch (CampoNaoInformadoException e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("FALTANDO ALGUM CAMPO");
+        }catch (EntidadeInexistenteException e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("ENTIDADE INEXISTENTE");
+        }
+
     }
 
     @DeleteMapping
